@@ -15,7 +15,7 @@ export default function Navbar() {
     }
 
     useEffect(()=>{
-        if(cookies.get('nombre')){
+        if(cookies.get('id')){
         setBotonActivo(true);
         }
     })

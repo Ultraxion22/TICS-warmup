@@ -58,10 +58,16 @@ app.get("/id", (req, res) => {
 
 app.put('/update', async (req,res) => {
     const sueldos = req.body.sueldos;
+    const imps = req.body.imps;
+    const honorarios = req.body.honorarios;
+    const imph = req.body.imph;
     const id = req.body.id;
     try{
         await UsuariosModel.findById(id, (err, updatedSueldos) => {
             updatedSueldos.sueldo = sueldos;
+            updatedSueldos.imps = imps;
+            updatedSueldos.honorarios = honorarios;
+            updatedSueldos.imph = imph;
             updatedSueldos.save();
             console.log('updated');
         })

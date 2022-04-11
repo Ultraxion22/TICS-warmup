@@ -15,6 +15,7 @@ export default function(){
             rut: rut, 
             password: password}).then(()=>{
                 alert("Completado")
+                window.location.href="/";
             });
     }
 

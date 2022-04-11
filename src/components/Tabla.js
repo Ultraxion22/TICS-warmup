@@ -67,6 +67,7 @@ export default function Tabla() {
         doce: 0
     }]);
 
+
     
     useEffect(()=> {
         Axios.get('http://localhost:3001/id', {params:{id: cookies.get('id')}}).then((response)=> {
@@ -74,16 +75,44 @@ export default function Tabla() {
         });
     }, []);
 
+
+    
     const actualizar = () =>{
+
         let sueldos = [sueldoList.uno, sueldoList.dos, sueldoList.tres, sueldoList.cuatro, sueldoList.cinco, sueldoList.seis, sueldoList.siete, sueldoList.ocho, sueldoList.nueve, sueldoList.diez, sueldoList.once, sueldoList.doce];
+        let imps = [impsList.uno, impsList.dos, impsList.tres, impsList.cuatro, impsList.cinco, impsList.seis, impsList.siete, impsList.ocho, impsList.nueve, impsList.diez, impsList.once, impsList.doce]; 
+        let honorarios = [honorariosList.uno, honorariosList.dos, honorariosList.tres, honorariosList.cuatro, honorariosList.cinco, honorariosList.seis, honorariosList.siete, honorariosList.ocho, honorariosList.nueve, honorariosList.diez, honorariosList.once, honorariosList.doce]; 
+        let imph = [imphList.uno, imphList.dos, imphList.tres, imphList.cuatro, imphList.cinco, imphList.seis, imphList.siete, imphList.ocho, imphList.nueve, imphList.diez, imphList.once, imphList.doce];
+        
+
         Axios.put('http://localhost:3001/update', {
             sueldos: sueldos,
+            imps: imps,
+            honorarios: honorarios,
+            imph: imph,
             id: cookies.get('id')
         })
-        window.location.href="/tabla";
+            window.location.href="/tabla";
     }
 
-    console.log(sueldoList)
+    const calcular = () =>{
+        const sueldos = [];
+        let honorarios = [];
+        let totalSueldos = 0;
+        userList.filter((val) => {
+            return val
+        }).map((val, index) =>{
+            sueldos[index] = val.sueldo;
+            honorarios[index] = val.honorarios;
+        })
+
+        for (let i = 0; i < sueldos.length; i++) {
+                totalSueldos = sueldos[i];
+        }
+        
+        
+    }
+
     
     return(
         <div>
@@ -108,86 +137,86 @@ export default function Tabla() {
                                     <tr>
                                     <th scope="row">1</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, uno: e.target.value }});}}/> {val.sueldo[0]}</td>
-                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, uno: e.target.value }});}}/> {val.imps[0]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, uno: (e.target.value)/100 }});}}/> {val.imps[0]*100}%</td>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, uno: e.target.value }});}}/> {val.honorarios[0]}</td>
-                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, uno: e.target.value }});}}/> {val.imph[0]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, uno: (e.target.value)/100 }});}}/> {val.imph[0]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">2</th>
-                                    <td><input type="number" min ='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, dos: e.target.value }});}}/> {val.sueldo[1]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[1]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[1]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[1]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, dos: e.target.value }});}}/> {val.sueldo[1]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, dos: (e.target.value)/100 }});}}/> {val.imps[1]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, dos: e.target.value }});}}/> {val.honorarios[1]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, dos: (e.target.value)/100 }});}}/> {val.imph[1]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">3</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, tres: e.target.value }});}}/> {val.sueldo[2]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[2]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[2]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[2]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, tres: (e.target.value)/100 }});}}/> {val.imps[2]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, tres: e.target.value }});}}/> {val.honorarios[2]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, tres: (e.target.value)/100 }});}}/> {val.imph[2]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">3</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, cuatro: e.target.value }});}}/> {val.sueldo[3]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[3]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[3]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[3]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, cuatro: (e.target.value)/100 }});}}/> {val.imps[3]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, cuatro: e.target.value }});}}/> {val.honorarios[3]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, cuatro: (e.target.value)/100 }});}}/> {val.imph[3]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">5</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, cinco: e.target.value }});}}/> {val.sueldo[4]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[4]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[4]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[4]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, cinco: (e.target.value)/100 }});}}/> {val.imps[4]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, cinco: e.target.value }});}}/> {val.honorarios[4]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, cinco: (e.target.value)/100 }});}}/> {val.imph[4]*100}%</td>
                                     </tr> 
                                     <tr>
                                     <th scope="row">6</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, seis: e.target.value }});}}/> {val.sueldo[5]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[5]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[5]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[5]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, seis: (e.target.value)/100 }});}}/> {val.imps[5]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, seis: e.target.value }});}}/> {val.honorarios[5]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, seis: (e.target.value)/100 }});}}/> {val.imph[5]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">7</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, siete: e.target.value }});}}/> {val.sueldo[6]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[6]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[6]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[6]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, siete: (e.target.value)/100 }});}}/> {val.imps[6]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, siete: e.target.value }});}}/> {val.honorarios[6]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, siete: (e.target.value)/100 }});}}/> {val.imph[6]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">8</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, ocho: e.target.value }});}}/> {val.sueldo[7]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[7]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[7]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[7]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, ocho: (e.target.value)/100 }});}}/> {val.imps[7]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, ocho: e.target.value }});}}/> {val.honorarios[7]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, ocho: (e.target.value)/100 }});}}/> {val.imph[7]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">9</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, nueve: e.target.value }});}}/> {val.sueldo[8]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[8]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[8]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[8]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, nueve: (e.target.value)/100 }});}}/> {val.imps[8]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, nueve: e.target.value }});}}/> {val.honorarios[8]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, nueve: (e.target.value)/100 }});}}/> {val.imph[8]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">10</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, diez: e.target.value }});}}/> {val.sueldo[9]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[9]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[9]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[9]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, diez: (e.target.value)/100 }});}}/> {val.imps[9]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, diez: e.target.value }});}}/> {val.honorarios[9]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, diez: (e.target.value)/100 }});}}/> {val.imph[9]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">11</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, once: e.target.value }});}}/> {val.sueldo[10]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[10]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[10]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[10]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, once: (e.target.value)/100 }});}}/> {val.imps[10]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, once: e.target.value }});}}/> {val.honorarios[10]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, once: (e.target.value)/100 }});}}/> {val.imph[10]*100}%</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">12</th>
                                     <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setSueldoList(previousState => {return { ...previousState, doce: e.target.value }});}}/> {val.sueldo[11]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imps[11]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.honorarios[11]}</td>
-                                    <td><input type="number" min='0' value="0"/> {val.imph[11]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImpsList(previousState => {return { ...previousState, doce: (e.target.value)/100 }});}}/> {val.imps[11]*100}%</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setHonorariosList(previousState => {return { ...previousState, doce: e.target.value }});}}/> {val.honorarios[11]}</td>
+                                    <td><input type="number" min='0' defaultValue="0" onChange={(e)  => {setImphList(previousState => {return { ...previousState, doce: (e.target.value)/100 }});}}/> {val.imph[11]*100}%</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -197,7 +226,7 @@ export default function Tabla() {
                 
                 <div className="d-flex justify-content-center">
                 <button type="submmit" onClick={actualizar} className=" m-2 btn btn-primary btn-lg btn-block">Actualizar</button>
-                <button type="button" className=" m-2 btn btn-primary btn-lg btn-block">Calcular</button>
+                <button type="button"  onClick={calcular} className=" m-2 btn btn-primary btn-lg btn-block">Calcular</button>
                 </div>
             </div>
         </div>
