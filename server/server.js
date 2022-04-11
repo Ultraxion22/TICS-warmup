@@ -14,6 +14,7 @@ mongoose.connect('mongodb+srv://admin:lolito100@cluster0.ftaza.mongodb.net/myFir
     }
 );
 
+
 app.post('/registro', async (req,res) => {
     const nombre = req.body.nombre;
     const rut = req.body.rut;
@@ -28,9 +29,12 @@ app.post('/registro', async (req,res) => {
     }
 });
 
-app.get("/login", async (req, res) => {
+//LOGIN
+app.get("/login", (req, res) => {
     const rut = req.query.rut;
     const password = req.query.password;
+    console.log(rut);
+    console.log(password);
     UsuariosModel.find({ rut: rut, password: password}, (err, result) => {
         if (err) {
             console.log(err)
@@ -39,6 +43,35 @@ app.get("/login", async (req, res) => {
         console.log(result)
     })
 })
+
+app.get("/id", (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    UsuariosModel.find({ _id: id }, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        res.send(result)
+        console.log(result)
+    })
+})
+
+app.put('/update', async (req,res) => {
+    const sueldos = req.body.sueldos;
+    const id = req.body.id;
+    try{
+        await UsuariosModel.findById(id, (err, updatedSueldos) => {
+            updatedSueldos.sueldo = sueldos;
+            updatedSueldos.save();
+            console.log('updated');
+        })
+    }catch (err) {
+        console.log(err);
+    }
+});
+
+
+
 app.listen(3001, () =>{
     console.log("Server running on port 3001");
 })

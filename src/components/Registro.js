@@ -41,7 +41,7 @@ export default function(){
                     <input type="password" className="form-control" placeholder="*********" onChange={(e) => {
                                 setPassword(e.target.value);}} />
                 </div>
-                <button type="submit" onClick={submitButton} class="btn btn-primary"><Link to="/" >Registro</Link></button>
+                <button type="submit" onClick={submitButton} class="btn btn-primary">Registro</button>
             </form>
             </div>
         </div>

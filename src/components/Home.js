@@ -9,25 +9,17 @@ export default function(){
 
     const [rut, setRut] = useState("");
     const [password, setPassword] = useState("");
-
+    
     const submitButton = () => {
-        Axios.get("http://localhost:3001/login", {params: {rut: rut, password: password}})
+        Axios.get(`http://localhost:3001/login`, {params: {rut: rut, password: password}})
         .then(response => {
             return response.data;
             })
             .then(response=>{
-                if(response.length>0){
-                    var respuesta = response[0];
-                    cookies.set('rut', respuesta.rut, {path: "/"});
-                    cookies.set('nombre', respuesta.nombre, {path: "/"});
-                    cookies.set('sueldo', respuesta.sueldo, {path: "/"});
-                    cookies.set('imps', respuesta.imps, {path: "/"});
-                    cookies.set('honorarios', respuesta.honorarios, {path: "/"});
-                    cookies.set('imph', respuesta.imph, {path: "/"});
-                    window.location.href="/tabla";
-                }else{
-                    alert("El usuario o contrasena son incorrectos");
-                }
+                var respuesta = response[0];
+                cookies.set('id', respuesta._id, {path: "/"});
+                cookies.set('nombre', respuesta.nombre, {path: "/"});
+                window.location.href="/tabla";
             })
             .catch(error=>{
                 console.log(error)

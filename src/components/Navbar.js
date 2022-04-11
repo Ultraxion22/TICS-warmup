@@ -9,18 +9,13 @@ export default function Navbar() {
     const [botonActivo, setBotonActivo] = useState(false);
 
     const cerrarSesion = () => {
-        cookies.remove('rut', {path: "/"});
-        cookies.remove('nombre', {path: "/"});
-        cookies.remove('password', {path: "/"});
-        cookies.remove('sueldo', {path: "/"});
-        cookies.remove('imps', {path: "/"});
-        cookies.remove('honorarios', {path: "/"});
-        cookies.remove('imph', {path: "/"});
+        cookies.remove('id');
+        cookies.remove('nombre');
         window.location.href="/";
     }
 
     useEffect(()=>{
-        if(cookies.get('rut')){
+        if(cookies.get('nombre')){
         setBotonActivo(true);
         }
     })
