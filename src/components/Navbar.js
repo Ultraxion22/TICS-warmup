@@ -9,8 +9,8 @@ export default function Navbar() {
     const [botonActivo, setBotonActivo] = useState(false);
 
     const cerrarSesion = () => {
-        cookies.remove('id');
-        cookies.remove('nombre');
+        cookies.remove('id', {path: "/"});
+        cookies.remove('nombre', {path: "/"});
         window.location.href="/";
     }
 
@@ -28,7 +28,7 @@ export default function Navbar() {
                 </div>
                 <div hidden={!botonActivo} class="nav-button">
                       <div class="p-3 bd-highlight">
-                          <button onClick={() => {cerrarSesion()}} className='btn btn-primary'>Cerrar Sesion</button>
+                          <button onClick={() => {cerrarSesion()}} className='btn btn-primary'>Cerrar sesion</button>
                       </div>
                 </div>
             </nav>

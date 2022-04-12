@@ -2,24 +2,32 @@ import Axios from "axios";
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const cookies = new Cookies();
 
 export default function(){
 
-    const [rut, setRut] = useState("");
-    const [password, setPassword] = useState("");
+    const [rut, setRut] = useState();
+    const [password, setPassword] = useState();
     
     const submitButton = () => {
         Axios.get(`http://localhost:3001/login`, {params: {rut: rut, password: password}})
         .then(response => {
+            console.log(response);
             return response.data;
             })
             .then(response=>{
+                if(response.length>0){
                 var respuesta = response[0];
                 cookies.set('id', respuesta._id, {path: "/"});
                 cookies.set('nombre', respuesta.nombre, {path: "/"});
                 window.location.href="/tabla";
+                }
+                else{
+                    alert("Usuario o contraseña incorrectos");
+                }
             })
             .catch(error=>{
                 console.log(error)
@@ -45,8 +53,7 @@ export default function(){
                     <Link to="/registro">No tiene cuenta? Registrese aqui!</Link>
                     </div>
                 </div>
-                
-                <button type="submit" onClick={submitButton} class="btn btn-primary">Ingresar</button>
+                <Button onClick={submitButton} className="btn btn-primary">Ingresar</Button>
             </form>
             </div>
         </div>

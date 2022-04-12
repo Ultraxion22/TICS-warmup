@@ -1,6 +1,8 @@
 import Axios from "axios";
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 
 export default function(){
 
@@ -42,7 +44,7 @@ export default function(){
                     <input type="password" className="form-control" placeholder="*********" onChange={(e) => {
                                 setPassword(e.target.value);}} />
                 </div>
-                <button type="submit" onClick={submitButton} class="btn btn-primary">Registro</button>
+                <Button onClick={submitButton} className="btn btn-primary">Registro</Button>
             </form>
             </div>
         </div>

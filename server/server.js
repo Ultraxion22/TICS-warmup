@@ -23,6 +23,7 @@ app.post('/registro', async (req,res) => {
 
     try{
         await usuario.save();
+        console.log("inserted data");
         res.send("inserted data");
     }catch (err) {
         console.log(err);
