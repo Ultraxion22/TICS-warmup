@@ -5,7 +5,6 @@ import Tabla from './Tabla';
 import Registro from './Registro';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
 function App() {
   return (
     <BrowserRouter>
