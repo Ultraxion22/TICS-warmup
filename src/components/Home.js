@@ -13,7 +13,7 @@ export default function(){
     const [password, setPassword] = useState();
     
     const submitButton = () => {
-        Axios.get(`http://localhost:3001/login`, {params: {rut: rut, password: password}})
+        Axios.get(`http://localhost:3001/api/login`, {params: {rut: rut, password: password}})
         .then(response => {
             console.log(response);
             return response.data;

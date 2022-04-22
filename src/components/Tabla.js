@@ -104,7 +104,7 @@ export default function Tabla() {
     const imphActual = [];
 
     useEffect(()=> {
-        Axios.get('http://localhost:3001/id', {params:{id: cookies.get('id')}}).then((response)=> {
+        Axios.get('http://localhost:3001/api/id', {params:{id: cookies.get('id')}}).then((response)=> {
         setUserList(response.data)
         });
     }, []);
@@ -141,7 +141,7 @@ export default function Tabla() {
             }
         }
 
-        Axios.put('http://localhost:3001/update', {
+        Axios.put('http://localhost:3001/api/update', {
             sueldos: sueldos,
             imps: imps,
             honorarios: honorarios,

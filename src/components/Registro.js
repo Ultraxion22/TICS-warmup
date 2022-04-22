@@ -12,7 +12,7 @@ export default function(){
 
 
     const submitButton = () => {
-        Axios.post("http://localhost:3001/registro", {
+        Axios.post("http://localhost:3001/api/registro", {
             nombre: nombre, 
             rut: rut, 
             password: password}).then(()=>{
